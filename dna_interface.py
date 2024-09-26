@@ -52,24 +52,33 @@ def validate_data(badge, install_date, service_point, dma, postcode, alert_prese
 
 # Process badge alert
 def process_badge(badge, alert_present, alert_type, under_investigation, sr_code):
+    result = {
+        "Badge": badge,
+        "Under Investigation": under_investigation,
+        "SR Code": sr_code,
+        "Alert Present": alert_present,
+        "Alert Type": alert_type,
+    }
+
     if under_investigation:
-        return f"Badge {badge}: Under investigation (SR Code: {sr_code})."
+        result["Message"] = f"Badge {badge}: Under investigation (SR Code: {sr_code})."
+        return result
 
     if alert_present == 'Y':
         if alert_type == "Leakage":
-            return f"Badge {badge}: Immediate action required for leakage."
+            result["Message"] = f"Badge {badge}: Immediate action required for leakage."
         elif alert_type == "No consumption":
-            return f"Badge {badge}: Investigate no consumption issue."
+            result["Message"] = f"Badge {badge}: Investigate no consumption issue."
         elif alert_type == "High consumption":
-            return f"Badge {badge}: Investigate high consumption alert."
+            result["Message"] = f"Badge {badge}: Investigate high consumption alert."
         elif alert_type == "Low battery":
-            return f"Badge {badge}: Battery needs replacement."
+            result["Message"] = f"Badge {badge}: Battery needs replacement."
         else:
-            return f"Badge {badge}: Alert present but type not recognised."
-    elif alert_present == 'N':
-        return f"Badge {badge}: No alerts present, no action needed."
+            result["Message"] = f"Badge {badge}: Alert present but type not recognised."
     else:
-        return f"Badge {badge}: Invalid alert status."
+        result["Message"] = f"Badge {badge}: No alerts present, no action needed."
+
+    return result
 
 
 # Display alerts for badges
@@ -231,5 +240,6 @@ def user_interface():
             print("Invalid choice. Please try again.")
 
 
-# Start the user interface
-user_interface()
+# Only run the user interface if this script is run directly
+if __name__ == "__main__":
+    user_interface()
