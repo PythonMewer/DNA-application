@@ -7,18 +7,16 @@ DNA is a Python application that enhances leak detection in water distribution n
 
 ## Installation
 1. Clone the repository.
-2. Install dependencies using:
-pip install -r requirements.txt
-csharp
+2. Install dependencies.
 Copy code
 
 ## Usage
 Run the application with:
-python main.py
+dna_interface.py
 csharp
 Copy code
 
 ## Testing
 Run the unit tests with:
-python -m unittest discover tests/
+python -m unittest dna_unit_test.py -v
 Copy code
